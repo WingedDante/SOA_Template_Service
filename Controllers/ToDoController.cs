@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProviderService.data.models;
-using ProviderService.data;
-using ProviderService.Services;
+using ToDoService.DAL.Models;
+using ToDoService.DAL;
+using ToDoService.Services;
 
-namespace ProviderService.Controllers
+namespace ToDoService.Controllers
 {
     /*
         Your Controllers really only care about handling the HTTP requests, 
@@ -16,61 +16,61 @@ namespace ProviderService.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ProvidersController : ControllerBase
+    public class ToDoController : ControllerBase
     {
         
-        private ProvidersService _providerService;
+        private ToDoService.Services.ToDoService _toDoService;
        
-        public ProvidersController(ProvidersService providerService )
+        public ToDoController(ToDoService.Services.ToDoService toDoService )
         {
-            _providerService = providerService;
+            _toDoService = toDoService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<TbuProvider>> Get()
+        public ActionResult<IEnumerable<ToDoItem>> Get()
         {
             /*
                 get data with _service
                 apply _BL
                 Return VM
              */
-            var providers = _providerService.GetAllProviders();
+            var toDos = _toDoService.GetAllToDoItems();
 
-            if (providers != null)
+            if (toDos != null)
             {
-                return Ok(providers);
+                return Ok(toDos);
             }
-            else if (providers.Count() == 0)
+            else if (toDos.Count() == 0)
             {
-                return Ok(providers);
+                return Ok(toDos);
             }
             else
             {
-                return Ok(new List<TbuProvider>());
+                return Ok(new List<ToDoItem>());
             }
 
 
         }
 
-        // POST api/providers
+        // POST api/toDos
         [HttpPost]
-        public ActionResult<IEnumerable<TbuProvider>> Post([FromBody] string name)
+        public ActionResult<IEnumerable<ToDoItem>> Post([FromBody] string name)
         {
             if (name != null && name != "")
             {
-                var providers = _providerService.GetProvider(name);
+                var toDos = _toDoService.GetToDoItem(name);
 
-                if (providers != null)
+                if (toDos != null)
                 {
-                    return Ok(providers);
+                    return Ok(toDos);
                 }
-                else if (providers.Count() == 0)
+                else if (toDos.Count() == 0)
                 {
-                    return Ok(providers);
+                    return Ok(toDos);
                 }
                 else
                 {
-                    return Ok(new List<TbuProvider>());
+                    return Ok(new List<ToDoItem>());
                 }
             }
             else

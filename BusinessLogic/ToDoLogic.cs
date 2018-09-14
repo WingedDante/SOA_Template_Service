@@ -1,11 +1,11 @@
-using ProviderService.BusinessLogic.Interfaces;
+using ToDoService.BusinessLogic.Interfaces;
 
-namespace ProviderService.BusinessLogic
+namespace ToDoService.BusinessLogic
 {
     /*
         This is just an empty shell as a placeholder for how you'd do your business logic
      */
-    public class PhysicianProvider : IPhysicianProvider
+    public class ToDoLogic : IToDoLogic
     {
         public void DoStuff(){
 

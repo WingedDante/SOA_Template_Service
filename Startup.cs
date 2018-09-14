@@ -10,16 +10,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ProviderService.data.contexts;
+using ToDoService.DAL.Contexts;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-namespace ProviderService
+namespace ToDoService
 {
     using Services;
     using BusinessLogic;
-    using ProviderService.data.Repositories.Interfaces;
-    using ProviderService.data.Repositories;
-    using ProviderService.BusinessLogic.Interfaces;
+    using ToDoService.DAL.Repositories.Interfaces;
+    using ToDoService.DAL.Repositories;
+    // using ProviderService.BusinessLogic.Interfaces;
 
     public class Startup
     {
@@ -33,14 +33,14 @@ namespace ProviderService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProviderContext>(opt => 
+            services.AddDbContext<ToDoContext>(opt => 
                 //String goes in config, or pulled from a DB
-                opt.UseSqlServer("Server=d-wbdb01-aultcare.database.windows.net,1433; Initial Catalog=ACProvDir;Persist Security Info=False;User ID=ProvDirUser;Password=vOTQ%R!fE$33u!1X;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;")
+                opt.UseSqlite("Data Source=ToDo.db")
                 );
 
-            services.AddScoped<ProvidersService>();
-            services.AddTransient<IPhysicianProvider, PhysicianProvider>();
-            services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.AddScoped<ToDoService>();
+            // services.AddTransient<IPhysicianProvider, PhysicianProvider>();
+            services.AddScoped<IToDoRepository, ToDoRepository>();
             services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
