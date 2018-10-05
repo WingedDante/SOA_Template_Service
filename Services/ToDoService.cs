@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToDoService.Services
 {
+    using System.Threading.Tasks;
     using Interfaces;
     // using ToDoService.BusinessLogic.Interfaces;
 
@@ -57,7 +58,12 @@ namespace ToDoService.Services
 
         }
 
+        public async Task<int> AddToDoItem(ToDoItem item)
+        {
+            var insert_result = await _repository.Add(item);
 
+            return insert_result;
+        }
     }
 
 }

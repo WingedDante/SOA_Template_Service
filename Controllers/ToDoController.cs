@@ -25,7 +25,9 @@ namespace ToDoService.Controllers
         {
             _toDoService = toDoService;
         }
+        
 
+        //GET api/todo
         [HttpGet]
         public ActionResult<IEnumerable<ToDoItem>> Get()
         {
@@ -52,7 +54,8 @@ namespace ToDoService.Controllers
 
         }
 
-        // POST api/toDos
+        // POST api/toDo
+        // POST body: name
         [HttpPost]
         public ActionResult<IEnumerable<ToDoItem>> Post([FromBody] string name)
         {
@@ -77,6 +80,22 @@ namespace ToDoService.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        //PUT
+        [HttpPut]
+        public async Task<ActionResult<bool>> Put([FromBody] ToDoItem item){
+            int result;
+            try{
+                result =  (await _toDoService.AddToDoItem(item));
+                return Ok(result);
+            }
+            catch(Exception ex){
+                result = 0;
+                return BadRequest(result);
+            }
+
+            
         }
 
         // // GET api/values/5

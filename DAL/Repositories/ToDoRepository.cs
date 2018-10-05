@@ -4,6 +4,7 @@ using ToDoService.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ToDoService.DAL.Contexts;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ToDoService.DAL.Repositories
 {
@@ -28,6 +29,11 @@ namespace ToDoService.DAL.Repositories
 
            
 
+        }
+        public async Task<int> Add(ToDoItem toDo){
+
+            await _context.ToDos.AddAsync(toDo);
+           return await _context.SaveChangesAsync();
         }
     }
 }
