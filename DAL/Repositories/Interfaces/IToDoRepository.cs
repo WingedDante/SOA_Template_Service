@@ -9,5 +9,7 @@ namespace ToDoService.DAL.Repositories.Interfaces
          IEnumerable<ToDoItem> GetAll();
          IEnumerable<ToDoItem> Search(string name);
          Task<int> Add(ToDoItem toDo);
+         Task<int> Delete(int toDoId);
+         ToDoItem GetToDo(int toDoId);
     }
 }

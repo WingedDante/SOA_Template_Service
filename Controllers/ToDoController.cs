@@ -54,10 +54,17 @@ namespace ToDoService.Controllers
 
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<ToDoItem> Get(int id){
+            var result = _toDoService.GetToDoItemByID(id);
+
+            return Ok(result);
+        }
+
         // POST api/toDo
         // POST body: name
-        [HttpPost]
-        public ActionResult<IEnumerable<ToDoItem>> Post([FromBody] string name)
+        [HttpGet("{name}")]
+        public ActionResult<IEnumerable<ToDoItem>> Get([FromBody] string name)
         {
             if (name != null && name != "")
             {
@@ -83,7 +90,7 @@ namespace ToDoService.Controllers
         }
 
         //PUT
-        [HttpPut]
+        [HttpPost]
         public async Task<ActionResult<bool>> Put([FromBody] ToDoItem item){
             int result;
             try{
@@ -97,6 +104,20 @@ namespace ToDoService.Controllers
 
             
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<bool>> Delete(int id){
+            int result;
+            try{
+                result = (await _toDoService.DeleteToDoItem(id));
+                return Ok(result);
+            }
+            catch(Exception ex){
+                result = 0;
+                return BadRequest(result);
+            }
+        }
+
+
 
         // // GET api/values/5
         // [HttpGet("{id}")]

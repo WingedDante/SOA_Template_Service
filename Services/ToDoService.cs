@@ -64,6 +64,15 @@ namespace ToDoService.Services
 
             return insert_result;
         }
+
+        public async Task<int> DeleteToDoItem(int id){
+            var delete_result = await _repository.Delete(id);
+            return delete_result;
+        }
+        public ToDoItem GetToDoItemByID(int id){
+            var ToDo_result =  _repository.GetToDo(id);
+            return ToDo_result;
+        }
     }
 
 }

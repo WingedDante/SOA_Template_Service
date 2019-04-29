@@ -9,5 +9,7 @@ namespace ToDoService.Services.Interfaces
         IEnumerable<ToDoItem> GetAllToDoItems();
         IEnumerable<ToDoItem> GetToDoItem(string name);
         Task<int> AddToDoItem(ToDoItem item);
+        Task<int> DeleteToDoItem(int id);
+        ToDoItem GetToDoItemByID(int id);
     }
 }

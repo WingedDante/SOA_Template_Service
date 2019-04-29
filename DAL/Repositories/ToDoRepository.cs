@@ -35,5 +35,16 @@ namespace ToDoService.DAL.Repositories
             await _context.ToDos.AddAsync(toDo);
            return await _context.SaveChangesAsync();
         }
+        public async Task<int> Delete(int toDoId){
+            ToDoItem toDoItem = this.GetToDo(toDoId);
+             _context.ToDos.Remove(toDoItem);
+
+            return await _context.SaveChangesAsync();
+        }
+
+        public  ToDoItem GetToDo(int id){
+            var result = _context.ToDos.Where(t => t.ID == id);
+            return result.AsQueryable().Cast<ToDoItem>().First();
+        }
     }
 }
